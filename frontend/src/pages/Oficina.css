@@ -1,0 +1,105 @@
+.page {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* link voltar */
+.back {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* inputs */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* botão principal */
+button {
+  padding: 8px 16px;
+  background: #16a34a;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* lista */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+/* item da oficina */
+li {
+  background: #f9fafb;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* info da oficina */
+.oficina-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.oficina-info strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.localizacao {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ações */
+.oficina-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+li a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* botão remover */
+.del {
+  background: #dc2626;
+}
+
+.del:hover {
+  opacity: 0.9;
+}

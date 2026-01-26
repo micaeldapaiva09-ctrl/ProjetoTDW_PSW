@@ -1,0 +1,74 @@
+.dashboard-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  background-color: #007BFF;
+  color: #fff;
+}
+.dashboard-navbar h2 {
+  margin: 0;
+  font-size: 24px;
+}
+.dashboard-nav-links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+.dashboard-nav-links a:hover {
+  text-decoration: underline;
+}
+.dashboard-logout {
+  background-color: #dc3545;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dashboard-logout:hover {
+  background-color: #b02a37;
+}
+.dashboard-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+.dashboard-card {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 500px;
+}
+.dashboard-card h1 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  color: #333;
+}
+.dashboard-card p {
+  font-size: 18px;
+  color: #555;
+}
+.dashboard-unauth {
+  padding: 40px;
+  text-align: center;
+}
+.dashboard-unauth h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+.dashboard-unauth button {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dashboard-unauth button:hover {
+  background-color: #0056b3;
+}

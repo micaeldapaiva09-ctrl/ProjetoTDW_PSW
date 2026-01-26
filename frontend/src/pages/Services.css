@@ -1,0 +1,51 @@
+.page {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+button {
+  padding: 8px 14px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.del {
+  background: #dc2626;
+}

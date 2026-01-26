@@ -1,0 +1,99 @@
+.page {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* título */
+.page h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.page h2 {
+  margin-top: 30px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #374151;
+}
+
+/* link voltar */
+.back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+/* formulário */
+.page select,
+.page input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* botão criar */
+.page button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.page button:hover {
+  background: #1d4ed8;
+}
+
+/* lista */
+.page ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.page li {
+  background: #f9fafb;
+  padding: 12px 14px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* responsivo */
+@media (max-width: 600px) {
+  .page {
+    margin: 20px;
+    padding: 18px;
+  }
+}
+.page li button {
+  background: #e5e7eb;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.page li button:hover {
+  background: #d1d5db;
+}
