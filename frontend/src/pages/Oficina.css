@@ -7,37 +7,29 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* link voltar */
 .back {
   display: inline-block;
   margin-bottom: 16px;
   color: #2563eb;
   text-decoration: none;
-  font-size: 14px;
+  font-weight: 500;
 }
 
-/* inputs */
 input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px;
   margin-bottom: 12px;
   border-radius: 6px;
   border: 1px solid #d1d5db;
   font-size: 14px;
 }
 
-input:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
-/* botão principal */
 button {
-  padding: 8px 16px;
-  background: #16a34a;
+  padding: 8px 14px;
   border: none;
-  color: #fff;
   border-radius: 6px;
+  background: #16a34a;
+  color: #fff;
   cursor: pointer;
   font-size: 14px;
 }
@@ -46,18 +38,16 @@ button:hover {
   opacity: 0.9;
 }
 
-/* lista */
 ul {
   list-style: none;
   padding: 0;
   margin-top: 20px;
 }
 
-/* item da oficina */
 li {
   background: #f9fafb;
   padding: 14px;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
@@ -68,13 +58,11 @@ li {
 .oficina-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .oficina-info strong {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  color: #111827;
 }
 
 .localizacao {
@@ -82,14 +70,13 @@ li {
   color: #6b7280;
 }
 
-/* ações */
-.oficina-actions {
+.actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
 }
 
-li a {
+.actions a {
   color: #2563eb;
   text-decoration: none;
   font-size: 14px;
@@ -98,8 +85,9 @@ li a {
 /* botão remover */
 .del {
   background: #dc2626;
+  color: #fff;
 }
 
 .del:hover {
-  opacity: 0.9;
+  background: #b91c1c;
 }

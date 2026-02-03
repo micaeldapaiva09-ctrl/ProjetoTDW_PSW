@@ -15,44 +15,41 @@ export default function Oficinas() {
   const [localizacao, setLocalizacao] = useState("");
 
   useEffect(() => {
-  const carregar = async () => {
-    try {
-      const res = await api.get("/oficinas");
-      setOficinas(res.data);
-    } catch (err) {
-      console.error("Erro ao carregar oficinas", err);
-    }
-  };
+    const carregar = async () => {
+      try {
+        const res = await api.get("/oficinas");
+        setOficinas(res.data);
+      } catch (err) {
+        console.error("Erro ao carregar oficinas", err);
+      }
+    };
 
-  carregar();
-}, []);
+    carregar();
+  }, []);
 
-
-  const carregar = async () => {
-    const res = await api.get("/oficinas");
-    setOficinas(res.data);
-  };
-
+  // 🔹 criar oficina
   const criar = async () => {
     if (!nome || !localizacao) return;
 
-    await api.post("/oficinas", { nome, localizacao });
+    await api.post("/oficinas", {
+      nome,
+      localizacao,
+    });
 
     setNome("");
     setLocalizacao("");
-    carregar();
-  };
 
-  const remover = async (id: string) => {
-    await api.delete(`/oficinas/${id}`);
-    setOficinas(prev => prev.filter(o => o._id !== id));
+    const res = await api.get("/oficinas");
+    setOficinas(res.data);
   };
 
   return (
     <div className="page">
       <h1>Oficinas</h1>
 
-      <Link className="back" to="/dashboard">⬅ Dashboard</Link>
+      <Link className="back" to="/dashboard">
+        ⬅ Dashboard
+      </Link>
 
       <input
         placeholder="Nome da oficina"
@@ -78,9 +75,6 @@ export default function Oficinas() {
 
             <div className="actions">
               <Link to={`/servicos/${o._id}`}>Serviços</Link>
-              <button className="del" onClick={() => remover(o._id)}>
-                Remover
-              </button>
             </div>
           </li>
         ))}

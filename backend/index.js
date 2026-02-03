@@ -40,183 +40,122 @@ app.get("/", (req, res) => {
 });
 
 // ==========================
-// ROTA 1 — USERS / REGISTO
+// USERS
 // ==========================
 app.post("/users", async (req, res) => {
-  const { nome, email, password } = req.body;
-
-  if (!nome || !email || !password) {
-    return res.status(400).json({ erro: "Todos os campos são obrigatórios" });
-  }
-
   try {
-    const user = await User.create({
-      nome,
-      email,
-      password,
-      role: "cliente"
-    });
-
+    const user = await User.create(req.body);
     res.status(201).json(user);
-  } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ erro: "Email já existe" });
-    }
-    res.status(400).json({ erro: error.message });
+  } catch (err) {
+    res.status(400).json({ erro: err.message });
   }
 });
 
 app.get("/users", async (req, res) => {
-  const users = await User.find();
-  res.json(users);
+  res.json(await User.find());
 });
 
 // ==========================
-// ROTA 2 — LOGIN
+// LOGIN
 // ==========================
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user || user.password !== password) {
-      return res.status(400).json({ erro: "Credenciais inválidas" });
-    }
-
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ erro: error.message });
+  if (!user || user.password !== password) {
+    return res.status(400).json({ erro: "Credenciais inválidas" });
   }
+
+  res.json(user);
 });
 
 // ==========================
-// ROTA 3 — VEÍCULOS
+// VEÍCULOS
 // ==========================
 app.post("/veiculos", async (req, res) => {
-  try {
-    const veiculo = await Veiculo.create(req.body);
-    res.status(201).json(veiculo);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.status(201).json(await Veiculo.create(req.body));
 });
 
 app.get("/veiculos", async (req, res) => {
-  const veiculos = await Veiculo.find();
-  res.json(veiculos);
+  res.json(await Veiculo.find());
 });
 
 app.put("/veiculos/:id", async (req, res) => {
-  try {
-    const veiculo = await Veiculo.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(veiculo);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.json(
+    await Veiculo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  );
 });
 
 app.delete("/veiculos/:id", async (req, res) => {
-  try {
-    await Veiculo.findByIdAndDelete(req.params.id);
-    res.sendStatus(204);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  await Veiculo.findByIdAndDelete(req.params.id);
+  res.sendStatus(204);
 });
 
 // ==========================
-// ROTA 4 — OFICINAS
+// OFICINAS
 // ==========================
 app.post("/oficinas", async (req, res) => {
-  try {
-    const oficina = await Oficina.create(req.body);
-    res.status(201).json(oficina);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.status(201).json(await Oficina.create(req.body));
 });
 
 app.get("/oficinas", async (req, res) => {
-  const oficinas = await Oficina.find();
-  res.json(oficinas);
+  res.json(await Oficina.find());
+});
+
+/**
+ * ✅ REMOVER OFICINA (IMPORTANTE)
+ * Apaga primeiro os serviços da oficina
+ */
+app.delete("/oficinas/:id", async (req, res) => {
+  try {
+    await Servico.deleteMany({ oficina: req.params.id });
+    await Oficina.findByIdAndDelete(req.params.id);
+    res.sendStatus(204);
+  } catch (err) {
+    res.status(400).json({ erro: err.message });
+  }
 });
 
 // ==========================
-// ROTA 5 — SERVIÇOS (POR OFICINA)
+// SERVIÇOS
 // ==========================
 app.post("/oficinas/:id/servicos", async (req, res) => {
-  try {
-    const servico = await Servico.create({
-      ...req.body,
-      oficina: req.params.id
-    });
-
-    res.status(201).json(servico);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  const servico = await Servico.create({
+    ...req.body,
+    oficina: req.params.id
+  });
+  res.status(201).json(servico);
 });
 
 app.get("/oficinas/:id/servicos", async (req, res) => {
-  try {
-    const servicos = await Servico.find({ oficina: req.params.id });
-    res.json(servicos);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.json(await Servico.find({ oficina: req.params.id }));
 });
 
 app.put("/servicos/:id", async (req, res) => {
-  try {
-    const servico = await Servico.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(servico);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.json(
+    await Servico.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  );
 });
 
 app.delete("/servicos/:id", async (req, res) => {
-  try {
-    await Servico.findByIdAndDelete(req.params.id);
-    res.sendStatus(204);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  await Servico.findByIdAndDelete(req.params.id);
+  res.sendStatus(204);
 });
 
 // ==========================
-// ROTA 6 — MARCAÇÕES (COM OFICINA)
+// MARCAÇÕES
 // ==========================
 app.post("/marcacoes", async (req, res) => {
-  try {
-    const marcacao = await Marcacao.create(req.body);
-    res.status(201).json(marcacao);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  res.status(201).json(await Marcacao.create(req.body));
 });
 
 app.get("/marcacoes", async (req, res) => {
-  const marcacoes = await Marcacao.find().populate("oficina");
-  res.json(marcacoes);
+  res.json(await Marcacao.find().populate("oficina"));
 });
 
 app.delete("/marcacoes/:id", async (req, res) => {
-  try {
-    await Marcacao.findByIdAndDelete(req.params.id);
-    res.sendStatus(204);
-  } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
+  await Marcacao.findByIdAndDelete(req.params.id);
+  res.sendStatus(204);
 });
 
 // ==========================

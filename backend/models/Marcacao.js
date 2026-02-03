@@ -1,3 +1,4 @@
+// models/Marcacao.js
 const mongoose = require("mongoose");
 
 const MarcacaoSchema = new mongoose.Schema({
@@ -8,6 +9,11 @@ const MarcacaoSchema = new mongoose.Schema({
   oficina: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Oficina",
+    required: true
+  },
+  servico: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Servico",
     required: true
   }
 });

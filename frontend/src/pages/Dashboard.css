@@ -1,74 +1,87 @@
-.dashboard-navbar {
+.dashboard-page {
+  min-height: 100vh;
+  background: #f4f6f8;
+  font-family: "Inter", sans-serif;
+}
+
+/* HEADER */
+.dashboard-header {
+  height: 64px;
+  background: #0d6efd;
+  color: white;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 30px;
-  background-color: #007BFF;
-  color: #fff;
+  justify-content: space-between;
+  padding: 0 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.dashboard-navbar h2 {
-  margin: 0;
-  font-size: 24px;
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
 }
-.dashboard-nav-links a {
-  margin-right: 20px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-.dashboard-nav-links a:hover {
-  text-decoration: underline;
-}
-.dashboard-logout {
-  background-color: #dc3545;
+
+/* LOGOUT */
+.logout-btn {
+  background: white;
+  color: #0d6efd;
   border: none;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 5px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-.dashboard-logout:hover {
-  background-color: #b02a37;
+
+.logout-btn:hover {
+  background: #e6edff;
 }
-.dashboard-container {
-  padding: 40px;
+
+/* CONTENT */
+.dashboard-content {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.dashboard-content h2 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.dashboard-content p {
+  color: #666;
+  margin-bottom: 48px;
+}
+
+/* CARDS */
+.cards {
   display: flex;
+  gap: 32px;
   justify-content: center;
 }
-.dashboard-card {
-  background-color: #fff;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  text-align: center;
-  max-width: 500px;
-}
-.dashboard-card h1 {
-  margin-bottom: 10px;
-  font-size: 26px;
-  color: #333;
-}
-.dashboard-card p {
-  font-size: 18px;
-  color: #555;
-}
-.dashboard-unauth {
-  padding: 40px;
-  text-align: center;
-}
-.dashboard-unauth h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-}
-.dashboard-unauth button {
-  padding: 10px 15px;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+
+.card {
+  background: white;
+  width: 260px;
+  padding: 32px;
+  border-radius: 16px;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
 }
-.dashboard-unauth button:hover {
-  background-color: #0056b3;
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+.card p {
+  color: #666;
+  font-size: 14px;
 }

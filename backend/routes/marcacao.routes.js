@@ -1,65 +1,42 @@
+// routes/marcacao.routes.js
 const express = require("express");
 const router = express.Router();
 const Marcacao = require("../models/Marcacao");
 
-// criar
+// 🔹 criar marcação
 router.post("/", async (req, res) => {
-  const { cliente, veiculo, oficina, servico, dataHora } = req.body;
+  try {
+    const { oficina, servico, dataHora } = req.body;
 
-  const conflito = await Marcacao.findOne({
-    oficina,
-    dataHora,
-    estado: { $ne: "Cancelada" }
-  });
+    if (!oficina || !servico || !dataHora) {
+      return res.status(400).json({ erro: "Dados incompletos" });
+    }
 
-  if (conflito) {
-    return res.status(400).json({ erro: "Horário indisponível" });
+    const marcacao = await Marcacao.create({
+      oficina,
+      servico,
+      dataHora
+    });
+
+    res.status(201).json(marcacao);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: "Erro ao criar marcação" });
   }
-
-  const marcacao = await Marcacao.create({
-    cliente,
-    veiculo,
-    oficina,
-    servico,
-    dataHora,
-    estado: "Ativa"
-  });
-
-  res.status(201).json(marcacao);
 });
 
-// listar TODAS
+// 🔹 listar marcações
 router.get("/", async (req, res) => {
-  const marcacoes = await Marcacao.find()
-    .populate("oficina servico veiculo cliente");
+  try {
+    const marcacoes = await Marcacao.find()
+      .populate("oficina")
+      .populate("servico")
+      .sort({ dataHora: 1 });
 
-  res.json(marcacoes);
-});
-
-// editar
-router.put("/:id", async (req, res) => {
-  const marcacao = await Marcacao.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-  res.json(marcacao);
-});
-
-// atualizar estado
-router.put("/:id/estado", async (req, res) => {
-  const marcacao = await Marcacao.findByIdAndUpdate(
-    req.params.id,
-    { estado: req.body.estado },
-    { new: true }
-  );
-  res.json(marcacao);
-});
-
-// remover
-router.delete("/:id", async (req, res) => {
-  await Marcacao.findByIdAndDelete(req.params.id);
-  res.sendStatus(204);
+    res.json(marcacoes);
+  } catch (err) {
+    res.status(500).json({ erro: "Erro ao listar marcações" });
+  }
 });
 
 module.exports = router;

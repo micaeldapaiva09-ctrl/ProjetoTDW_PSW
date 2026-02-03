@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Oficina = require("../models/Oficina");
 const Servico = require("../models/Servico");
+const Marcacao = require("../models/Marcacao");
 
 // =====================
 // OFICINAS
@@ -29,17 +30,30 @@ router.put("/:id", async (req, res) => {
   res.json(oficina);
 });
 
-// remover oficina
 router.delete("/:id", async (req, res) => {
-  await Oficina.findByIdAndDelete(req.params.id);
-  res.sendStatus(204);
+  try {
+    const oficinaId = req.params.id;
+
+    // apagar serviços da oficina
+    await Servico.deleteMany({ oficina: oficinaId });
+
+    // apagar marcações da oficina
+    await Marcacao.deleteMany({ oficina: oficinaId });
+
+    // apagar a oficina
+    await Oficina.findByIdAndDelete(oficinaId);
+
+    res.sendStatus(204);
+  } catch (err) {
+    res.status(400).json({ erro: err.message });
+  }
 });
 
 // =====================
 // SERVIÇOS
 // =====================
 
-// criar serviço numa oficina
+// criar serviço
 router.post("/:id/servicos", async (req, res) => {
   const servico = await Servico.create({
     ...req.body,
@@ -49,7 +63,7 @@ router.post("/:id/servicos", async (req, res) => {
   res.status(201).json(servico);
 });
 
-// listar serviços de uma oficina
+// listar serviços
 router.get("/:id/servicos", async (req, res) => {
   const servicos = await Servico.find({ oficina: req.params.id });
   res.json(servicos);

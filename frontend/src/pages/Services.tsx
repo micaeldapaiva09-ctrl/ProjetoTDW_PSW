@@ -22,58 +22,43 @@ export default function Services() {
     if (!id) return;
 
     const carregar = async () => {
-      try {
-        const res = await api.get(`/oficinas/${id}/servicos`);
-        setServicos(res.data);
-      } catch (err) {
-        console.error("Erro ao carregar serviços", err);
-      }
+      const res = await api.get(`/oficinas/${id}/servicos`);
+      setServicos(res.data);
     };
 
     carregar();
   }, [id]);
 
-  // criar ou editar serviço
+  // criar ou editar
   const guardar = async () => {
     if (!nome || !preco || !id) return;
 
-    try {
-      if (editarId) {
-        // EDITAR
-        await api.put(`/oficinas/servicos/${editarId}`, {
-          nome,
-          preco: Number(preco),
-        });
-        setEditarId(null);
-      } else {
-        // CRIAR
-        await api.post(`/oficinas/${id}/servicos`, {
-          nome,
-          preco: Number(preco),
-        });
-      }
-
-      setNome("");
-      setPreco("");
-
-      const res = await api.get(`/oficinas/${id}/servicos`);
-      setServicos(res.data);
-    } catch (err) {
-      console.error("Erro ao guardar serviço", err);
+    if (editarId) {
+      await api.put(`/servicos/${editarId}`, {
+        nome,
+        preco: Number(preco),
+      });
+      setEditarId(null);
+    } else {
+      await api.post(`/oficinas/${id}/servicos`, {
+        nome,
+        preco: Number(preco),
+      });
     }
+
+    setNome("");
+    setPreco("");
+
+    const res = await api.get(`/oficinas/${id}/servicos`);
+    setServicos(res.data);
   };
 
-  // remover serviço
+  // remover
   const remover = async (sid: string) => {
-    try {
-      await api.delete(`/oficinas/servicos/${sid}`);
-      setServicos(prev => prev.filter(s => s._id !== sid));
-    } catch (err) {
-      console.error("Erro ao remover serviço", err);
-    }
+    await api.delete(`/servicos/${sid}`);
+    setServicos(prev => prev.filter(s => s._id !== sid));
   };
 
-  // preparar edição
   const editar = (s: Servico) => {
     setEditarId(s._id);
     setNome(s.nome);
@@ -109,10 +94,8 @@ export default function Services() {
 
       <ul className="veiculos-lista">
         {servicos.map(s => (
-          <li key={s._id} className="veiculo-item">
-            <span>
-              {s.nome} — €{s.preco}
-            </span>
+          <li key={s._id}>
+            <span>{s.nome} — €{s.preco}</span>
 
             <div className="actions">
               <button onClick={() => editar(s)}>Editar</button>

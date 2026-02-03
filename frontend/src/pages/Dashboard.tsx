@@ -1,48 +1,48 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  const userId = localStorage.getItem("user_id");
-  const userNome = localStorage.getItem("user_nome");
-  const userRole = localStorage.getItem("user_role");
-
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
-  if (!userId) {
-    return (
-      <div className="dashboard-unauth">
-        <h2>Não autenticado</h2>
-        <button onClick={() => navigate("/login")}>Login</button>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <nav className="dashboard-navbar">
-        <h2>Oficina</h2>
+    <div className="dashboard-page">
+      
+      {/* TOP BAR */}
+      <header className="dashboard-header">
+        <h1 className="logo">Oficina</h1>
 
-        <div className="dashboard-nav-links">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/oficinas">Oficinas</Link>
-          <Link to="/veiculos">Veículos</Link>
-          <Link to="/marcacoes">Marcações</Link>
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
+      </header>
+
+      {/* CONTENT */}
+      <main className="dashboard-content">
+        <h2>Bem-vindo </h2>
+        <p>Escolhe uma área para gerir</p>
+
+        <div className="cards">
+          <div className="card" onClick={() => navigate("/oficinas")}>
+            🏭 <h3>Oficinas</h3>
+            <p>Gerir oficinas registadas</p>
+          </div>
+
+          <div className="card" onClick={() => navigate("/veiculos")}>
+            🚗 <h3>Veículos</h3>
+            <p>Consultar e adicionar veículos</p>
+          </div>
+
+          <div className="card" onClick={() => navigate("/marcacoes")}>
+            📅 <h3>Marcações</h3>
+            <p>Agendar e ver marcações</p>
+          </div>
         </div>
-
-        <button onClick={logout}>Logout</button>
-      </nav>
-
-      <div className="dashboard-container">
-        <div className="dashboard-card">
-          <h1>Bem-vindo, {userNome}</h1>
-          <p>Perfil: {userRole}</p>
-        </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
