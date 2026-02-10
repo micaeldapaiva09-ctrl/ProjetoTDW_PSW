@@ -3,10 +3,20 @@ const router = express.Router();
 const Oficina = require("../models/Oficina");
 const Servico = require("../models/Servico");
 const Marcacao = require("../models/Marcacao");
+const auth = require("../middlewares/auth");
+const role = require("../middlewares/role");
+const OficinasController = require("../controllers/OficinasController");
 
-// =====================
-// OFICINAS
-// =====================
+ 
+router.get("/", auth, OficinasController.listar);
+
+// ✏️ STAFF + ADMIN
+router.post("/", auth, role("admin", "staff"), OficinasController.criar);
+router.put("/:id", auth, role("admin", "staff"), OficinasController.editar);
+
+// 🗑️ SÓ ADMIN
+router.delete("/:id", auth, role("admin"), OficinasController.apagar);
+
 
 // criar oficina
 router.post("/", async (req, res) => {

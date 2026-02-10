@@ -1,6 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const Veiculo = require("../models/Veiculo");
+const auth = require("../middlewares/auth");
+const role = require("../middlewares/role");
+const VeiculosController = require("../controllers/VeiculosController");
+
+// 👀 CLIENTE vê os seus
+router.get("/", auth, VeiculosController.listar);
+
+// ➕ CLIENTE cria
+router.post("/", auth, role("cliente"), VeiculosController.criar);
+
+// ✏️ STAFF + ADMIN
+router.put("/:id", auth, role("staff", "admin"), VeiculosController.editar);
+
+// 🗑️ ADMIN
+router.delete("/:id", auth, role("admin"), VeiculosController.apagar);
 
 // criar
 router.post("/", async (req, res) => {

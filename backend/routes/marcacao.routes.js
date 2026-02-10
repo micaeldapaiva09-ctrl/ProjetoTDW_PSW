@@ -2,6 +2,20 @@
 const express = require("express");
 const router = express.Router();
 const Marcacao = require("../models/Marcacao");
+const auth = require("../middlewares/auth");
+const role = require("../middlewares/role");
+const MarcacoesController = require("../controllers/MarcacoesController");
+
+router.get("/", auth, MarcacoesController.listar);
+
+// ➕ CLIENTE cria marcação
+router.post("/", auth, role("cliente", "admin"), MarcacoesController.criar);
+
+// ✏️ STAFF + ADMIN gerem
+router.put("/:id", auth, role("staff", "admin"), MarcacoesController.editar);
+
+// 🗑️ ADMIN
+router.delete("/:id", auth, role("admin"), MarcacoesController.apagar);
 
 // 🔹 criar marcação
 router.post("/", async (req, res) => {
