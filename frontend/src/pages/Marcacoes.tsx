@@ -28,7 +28,7 @@ export default function Marcacoes() {
   const [servico, setServico] = useState("");
   const [dataHora, setDataHora] = useState("");
 
-  // 🔹 carregar oficinas
+  //  carregar oficinas
   useEffect(() => {
     const carregar = async () => {
       const res = await api.get("/oficinas");
@@ -37,7 +37,7 @@ export default function Marcacoes() {
     carregar();
   }, []);
 
-  // 🔹 carregar serviços da oficina
+  
   useEffect(() => {
     if (!oficina) return;
 
@@ -49,7 +49,7 @@ export default function Marcacoes() {
     carregarServicos();
   }, [oficina]);
 
-  // 🔹 carregar marcações
+  
   const carregarMarcacoes = async () => {
     const res = await api.get("/marcacoes");
     setMarcacoes(res.data);
@@ -69,7 +69,7 @@ export default function Marcacoes() {
 }, []);
 
 
-  // 🔹 criar marcação
+  //  criar marcação
   const criar = async () => {
     if (!oficina || !servico || !dataHora) return;
 
@@ -91,7 +91,7 @@ export default function Marcacoes() {
 
       <Link className="back" to="/dashboard">⬅ Dashboard</Link>
 
-      {/* FORM */}
+      
       <select value={oficina} onChange={e => setOficina(e.target.value)}>
         <option value="">Selecionar oficina</option>
         {oficinas.map(o => (
@@ -114,7 +114,7 @@ export default function Marcacoes() {
 
       <button onClick={criar}>Criar Marcação</button>
 
-      {/* LISTA */}
+      
       <h2>Marcações Criadas</h2>
 
       <ul>

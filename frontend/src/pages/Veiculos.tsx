@@ -46,12 +46,12 @@ export default function Veiculos() {
 }, []);
 
 
-  // 🔹 criar ou editar
+  
   const guardar = async () => {
     if (!form.marca || !form.modelo || !form.matricula || !form.ano) return;
 
     if (editarId) {
-      // EDITAR
+      
       await api.put(`/veiculos/${editarId}`, {
         ...form,
         ano: Number(form.ano),
@@ -69,13 +69,13 @@ export default function Veiculos() {
     carregarLista();
   };
 
-  // 🔹 remover
+  
   const remover = async (id: string) => {
     await api.delete(`/veiculos/${id}`);
     setLista(lista.filter(v => v._id !== id));
   };
 
-  // 🔹 preparar edição
+  
   const editar = (v: Veiculo) => {
     setEditarId(v._id);
     setForm({
@@ -90,7 +90,7 @@ export default function Veiculos() {
     <div className="veiculos-page">
       <h1>Veículos</h1>
 
-      {/* voltar */}
+      
       <Link to="/dashboard">← Voltar ao Dashboard</Link>
 
       {/* formulário */}
@@ -125,7 +125,7 @@ export default function Veiculos() {
         </button>
       </div>
 
-      {/* lista */}
+      
       <ul className="veiculos-lista">
         {lista.map(v => (
           <li key={v._id} className="veiculo-item">

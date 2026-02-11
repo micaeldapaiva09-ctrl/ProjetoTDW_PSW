@@ -11,7 +11,7 @@ router.put("/:id", async (req, res) => {
   res.json(servico);
 });
 
-// remover serviço
+
 router.delete("/:id", async (req, res) => {
   await Servico.findByIdAndDelete(req.params.id);
   res.sendStatus(204);

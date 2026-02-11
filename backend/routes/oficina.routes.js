@@ -8,15 +8,6 @@ const role = require("../middlewares/role");
 const OficinasController = require("../controllers/OficinasController");
 
  
-router.get("/", auth, OficinasController.listar);
-
-// ✏️ STAFF + ADMIN
-router.post("/", auth, role("admin", "staff"), OficinasController.criar);
-router.put("/:id", auth, role("admin", "staff"), OficinasController.editar);
-
-// 🗑️ SÓ ADMIN
-router.delete("/:id", auth, role("admin"), OficinasController.apagar);
-
 
 // criar oficina
 router.post("/", async (req, res) => {
@@ -24,13 +15,13 @@ router.post("/", async (req, res) => {
   res.status(201).json(oficina);
 });
 
-// listar oficinas
+
 router.get("/", async (req, res) => {
   const oficinas = await Oficina.find();
   res.json(oficinas);
 });
 
-// editar oficina
+
 router.put("/:id", async (req, res) => {
   const oficina = await Oficina.findByIdAndUpdate(
     req.params.id,
@@ -44,13 +35,13 @@ router.delete("/:id", async (req, res) => {
   try {
     const oficinaId = req.params.id;
 
-    // apagar serviços da oficina
+    
     await Servico.deleteMany({ oficina: oficinaId });
 
-    // apagar marcações da oficina
+    
     await Marcacao.deleteMany({ oficina: oficinaId });
 
-    // apagar a oficina
+    
     await Oficina.findByIdAndDelete(oficinaId);
 
     res.sendStatus(204);
@@ -59,9 +50,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// =====================
-// SERVIÇOS
-// =====================
 
 // criar serviço
 router.post("/:id/servicos", async (req, res) => {
@@ -73,13 +61,13 @@ router.post("/:id/servicos", async (req, res) => {
   res.status(201).json(servico);
 });
 
-// listar serviços
+
 router.get("/:id/servicos", async (req, res) => {
   const servicos = await Servico.find({ oficina: req.params.id });
   res.json(servicos);
 });
 
-// editar serviço
+
 router.put("/servicos/:sid", async (req, res) => {
   const servico = await Servico.findByIdAndUpdate(
     req.params.sid,
@@ -90,7 +78,7 @@ router.put("/servicos/:sid", async (req, res) => {
   res.json(servico);
 });
 
-// remover serviço
+
 router.delete("/servicos/:sid", async (req, res) => {
   await Servico.findByIdAndDelete(req.params.sid);
   res.sendStatus(204);

@@ -27,7 +27,7 @@ export default function Oficinas() {
     carregar();
   }, []);
 
-  // 🔹 criar oficina
+  //  criar oficina
   const criar = async () => {
     if (!nome || !localizacao) return;
 

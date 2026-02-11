@@ -12,7 +12,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-page">
       
-      {/* TOP BAR */}
+      
       <header className="dashboard-header">
         <h1 className="logo">Oficina</h1>
 
@@ -21,7 +21,7 @@ export default function Dashboard() {
         </button>
       </header>
 
-      {/* CONTENT */}
+      
       <main className="dashboard-content">
         <h2>Bem-vindo </h2>
         <p>Escolhe uma área para gerir</p>

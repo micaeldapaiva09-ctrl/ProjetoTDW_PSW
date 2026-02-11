@@ -17,7 +17,7 @@ export default function Services() {
   const [preco, setPreco] = useState("");
   const [editarId, setEditarId] = useState<string | null>(null);
 
-  // carregar serviços
+  
   useEffect(() => {
     if (!id) return;
 
@@ -29,7 +29,7 @@ export default function Services() {
     carregar();
   }, [id]);
 
-  // criar ou editar
+  
   const guardar = async () => {
     if (!nome || !preco || !id) return;
 

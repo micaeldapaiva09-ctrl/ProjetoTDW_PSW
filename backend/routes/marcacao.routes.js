@@ -1,4 +1,4 @@
-// routes/marcacao.routes.js
+
 const express = require("express");
 const router = express.Router();
 const Marcacao = require("../models/Marcacao");
@@ -8,16 +8,16 @@ const MarcacoesController = require("../controllers/MarcacoesController");
 
 router.get("/", auth, MarcacoesController.listar);
 
-// ➕ CLIENTE cria marcação
+
 router.post("/", auth, role("cliente", "admin"), MarcacoesController.criar);
 
-// ✏️ STAFF + ADMIN gerem
+
 router.put("/:id", auth, role("staff", "admin"), MarcacoesController.editar);
 
-// 🗑️ ADMIN
+
 router.delete("/:id", auth, role("admin"), MarcacoesController.apagar);
 
-// 🔹 criar marcação
+
 router.post("/", async (req, res) => {
   try {
     const { oficina, servico, dataHora } = req.body;
@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 🔹 listar marcações
+
 router.get("/", async (req, res) => {
   try {
     const marcacoes = await Marcacao.find()
